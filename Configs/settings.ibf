@@ -16,13 +16,13 @@ stoppingCriterion		= 50;
 	   
 	*/
 
-noMoreBPsThan 			= 3;
+noMoreBPsThan 			= 10;
 
 	/* do not consider mosaics with more than this many breakpoints.
 	   Set to a small number (e.g. 2) if all that is needed is a simple
 	   recominant - or non-recombinant categorization */
 	   
-BICMinLength			= 20;
+BICMinLength			= 100;
 
 	/* What is the shortest sequence fragment to be allowed in a mosaic.
 	   Set to a larger value (e.g. 200) if greater speed is desired at 
@@ -30,7 +30,7 @@ BICMinLength			= 20;
 	*/
 
 
-referenceAlignmentFileName  = "MouseIGKappa.nex";
+referenceAlignmentFileName  = "pol2011.nex";
 
 	/* the name of the reference alignment file (MUST 
 	be in the 'data' directory and have a .labels 
@@ -40,23 +40,3 @@ referenceAlignmentFileName  = "MouseIGKappa.nex";
 	or built up recursively using 'TopLevel/BuildUpReferenceAlignment.bf'
 	
 	*/
-
-frameSelectByAlignment			= 1;
-tryReverseComplement			= 1;
-useBlosum62						= 1;
-_bannedEndAdjust				= 1;
-_bannedStartAdjust				= 0;
-
-_additionalStartingBreakpoints	  = {};
-_additionalStartingBreakpoints[0] = {{"^V+","^J+","^C+"}};
-_additionalStartingBreakpoints[1] = {{"^V+","^J+"}};
-_additionalStartingBreakpoints[2] = {{"^J+","^C+"}};
-
-_validBreakpointStructure = {};
-_validBreakpointStructure [1] = {"0":"^V[^\\,]+\\,J[^\\,]+\\ inter",
-								 "1":"^J[^\\,]+\\,C\\ inter"};
-								 
-_validBreakpointStructure [2] = {"0":"^V[^\\,]+\\,J[^\\,]+\\,C inter"};								 
-
-_annotateSequenceByAlignment	  = "MapIGK";
-ExecuteAFile ("Annotators/IGK.ibf");
