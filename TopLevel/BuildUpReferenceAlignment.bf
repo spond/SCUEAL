@@ -1,7 +1,7 @@
 _maximumPureRecombLevel = 0.05;
 
 
-ExecuteAFile (HYPHY_BASE_DIRECTORY+"TemplateBatchFiles"+DIRECTORY_SEPARATOR+"Utility"+DIRECTORY_SEPARATOR+"GrabBag.bf");
+ExecuteAFile (HYPHY_LIB_DIRECTORY+"TemplateBatchFiles"+DIRECTORY_SEPARATOR+"Utility"+DIRECTORY_SEPARATOR+"GrabBag.bf");
 ExecuteAFile ("../HBF/utils.ibf");
 
 SetDialogPrompt 					("Existing reference file:");
@@ -18,9 +18,11 @@ fprintf (queryFileLog, CLEAR_FILE, KEEP_OPEN, "screen_results = {};");
 
 /* nucleotide distance threshold */
 
+
+
 DISTANCE_PROMPTS				  = 1;
 DataSetFilter		filteredData  = CreateFilter (reference_seq,1);
-ExecuteAFile 					  (HYPHY_BASE_DIRECTORY+"TemplateBatchFiles"+DIRECTORY_SEPARATOR+"chooseDistanceFormula.def");
+ExecuteAFile 					  (HYPHY_LIB_DIRECTORY+"TemplateBatchFiles"+DIRECTORY_SEPARATOR+"chooseDistanceFormula.def");
 nuc_threshold					  = prompt_for_a_value ("Include only sequences at least this distant from the nearest reference sequence",0.05, 0, 5, 0);
 
 runInMPIMode  = 1;
@@ -53,6 +55,8 @@ else
 	initPopSize   	  = 96;
 	stoppingCriterion = 50;
 }
+
+alignmentType = 2;
 
 for (seqLoop = 0; seqLoop < ds_in.species; seqLoop = seqLoop + 1)
 {
@@ -126,7 +130,7 @@ for (seqLoop = 0; seqLoop < ds_in.species; seqLoop = seqLoop + 1)
 				 	 	 "\nModel averaged support: ", Format(matchingSum/totalSum*100,8,4), "%\n",
 				 	 	 ConvertToPartString(overallBestFound),"\n");
 				 	 	 
-		if (runType == 0 && returnAVL["RECOMB"] < 0.05)
+		if (runType == 0 && returnAVL["RECOMB"] > 0.05)
 		{
 			fprintf (stdout, "[NON-PURE SUBTYPE SKIPPED]\n");
 			continue;
@@ -288,7 +292,7 @@ for (seqLoop = 0; seqLoop < ds_in.species; seqLoop = seqLoop + 1)
 			VERBOSITY_LEVEL        = 10;
 			OPTIMIZATION_PRECISION = 1;
 			
-			ExecuteAFile (HYPHY_BASE_DIRECTORY + "TemplateBatchFiles" + DIRECTORY_SEPARATOR 
+			ExecuteAFile (HYPHY_LIB_DIRECTORY + "TemplateBatchFiles" + DIRECTORY_SEPARATOR 
 											   + "AnalyzeCodonData.bf", codonOptions);
 			
 			OPTIMIZATION_PRECISION = 0.001;

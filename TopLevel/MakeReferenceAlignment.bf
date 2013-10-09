@@ -1,5 +1,5 @@
 ExecuteAFile ("../HBF/utils.ibf");
-ExecuteAFile (HYPHY_BASE_DIRECTORY + "TemplateBatchFiles" + DIRECTORY_SEPARATOR 
+ExecuteAFile (HYPHY_LIB_DIRECTORY + "TemplateBatchFiles" + DIRECTORY_SEPARATOR 
 								   + "Utility" + DIRECTORY_SEPARATOR + 
 								   "GrabBag.bf");
 								   
@@ -60,12 +60,12 @@ if (doAlign == 0)
 	if (alignmentType==0)
 	{
 		cleanNames ["0"] = "Universal";
-		ExecuteAFile (HYPHY_BASE_DIRECTORY + "TemplateBatchFiles" + DIRECTORY_SEPARATOR 
-									   + "SeqAlignment.bf", alignmentOptions);
+		ExecuteAFile (HYPHY_LIB_DIRECTORY + "TemplateBatchFiles" + DIRECTORY_SEPARATOR 
+									   + "SeqAlignmentCodon.bf", alignmentOptions);
 	}
 	else
 	{
-		ExecuteAFile (HYPHY_BASE_DIRECTORY + "TemplateBatchFiles" + DIRECTORY_SEPARATOR 
+		ExecuteAFile (HYPHY_LIB_DIRECTORY + "TemplateBatchFiles" + DIRECTORY_SEPARATOR 
 									   + "SeqAlignmentNuc.bf", alignmentOptions);
 	}
 	
@@ -82,7 +82,7 @@ else
 }
 cleanNames ["3"] = inFileToAlign;
 
-ExecuteAFile (HYPHY_BASE_DIRECTORY + "TemplateBatchFiles" + DIRECTORY_SEPARATOR 
+ExecuteAFile (HYPHY_LIB_DIRECTORY + "TemplateBatchFiles" + DIRECTORY_SEPARATOR 
 								   	   + "CleanStopCodons.bf", cleanNames);
 								   	   
 DataSet reloadMe = ReadDataFile (inFileToAlign);
@@ -115,7 +115,7 @@ njOptions ["6"] = inFileInfo["DIRECTORY"] + inFileInfo["FILENAME"] + "_nj.tree";
 
 if (useFileTree == 0)
 {
-	ExecuteAFile (HYPHY_BASE_DIRECTORY + "TemplateBatchFiles" + DIRECTORY_SEPARATOR 
+	ExecuteAFile (HYPHY_LIB_DIRECTORY + "TemplateBatchFiles" + DIRECTORY_SEPARATOR 
 									   + "NeighborJoining.bf", njOptions);
 }
 else
@@ -146,7 +146,7 @@ if (skipSwap == 0)
 	
 	VERBOSITY_LEVEL = 1;
 
-	ExecuteAFile (HYPHY_BASE_DIRECTORY + "TemplateBatchFiles" + DIRECTORY_SEPARATOR 
+	ExecuteAFile (HYPHY_LIB_DIRECTORY + "TemplateBatchFiles" + DIRECTORY_SEPARATOR 
 								   + "BranchSwap.bf", swappingOptions);
 
 	VERBOSITY_LEVEL = 0;
@@ -174,7 +174,7 @@ if (alignmentType == 0)
 	codonOptions ["6"] = njOptions ["6"];
 	codonOptions ["7"] = "Estimate";
 	
-	ExecuteAFile (HYPHY_BASE_DIRECTORY + "TemplateBatchFiles" + DIRECTORY_SEPARATOR 
+	ExecuteAFile (HYPHY_LIB_DIRECTORY + "TemplateBatchFiles" + DIRECTORY_SEPARATOR 
 									   + "AnalyzeCodonData.bf", codonOptions);
 }
 
@@ -193,7 +193,7 @@ if (alignmentType == 1)
 	codonOptions ["6"] = njOptions ["6"];
 	codonOptions ["7"] = "Don't Display";
 	
-	ExecuteAFile (HYPHY_BASE_DIRECTORY + "TemplateBatchFiles" + DIRECTORY_SEPARATOR 
+	ExecuteAFile (HYPHY_LIB_DIRECTORY + "TemplateBatchFiles" + DIRECTORY_SEPARATOR 
 									   + "AnalyzeNucProtData.bf", codonOptions);
 }
 
