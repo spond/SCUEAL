@@ -23,7 +23,7 @@ fprintf (queryFileLog, CLEAR_FILE, KEEP_OPEN, "screen_results = {};");
 DISTANCE_PROMPTS				  = 1;
 DataSetFilter		filteredData  = CreateFilter (reference_seq,1);
 ExecuteAFile 					  (HYPHY_LIB_DIRECTORY+"TemplateBatchFiles"+DIRECTORY_SEPARATOR+"chooseDistanceFormula.def");
-nuc_threshold					  = prompt_for_a_value ("Include only sequences at least this distant from the nearest reference sequence",0.05, 0, 5, 0);
+nuc_threshold					  = prompt_for_a_value ("Include only sequences at least this distant from the nearest reference sequence",_maximumPureRecombLevel, 0, 5, 0);
 
 runInMPIMode  = 1;
 DataSetFilter ds_fil = CreateFilter (ds_in,1);
@@ -48,12 +48,14 @@ if (runType == 0)
 	noMoreBPsThan     = 2;
 	initPopSize       = 64;
 	stoppingCriterion = 50;
+	_BICMinLength     = 300;
 }
 else
 {
 	noMoreBPsThan 	  = 50;
 	initPopSize   	  = 96;
 	stoppingCriterion = 50;
+	BICMinLength      = 100;
 }
 
 alignmentType = 2;
@@ -119,7 +121,7 @@ for (seqLoop = 0; seqLoop < ds_in.species; seqLoop = seqLoop + 1)
 		rvChoice				= 0;
 		siteRateClasses			= 3;
 		
-		BICMinLength			= 100;
+		BICMinLength			= _BICMinLength;
 		ExecuteAFile ("../HBF/SingleSequenceScan2.bf");
 		
 		/* how many breakpoints */
@@ -130,7 +132,7 @@ for (seqLoop = 0; seqLoop < ds_in.species; seqLoop = seqLoop + 1)
 				 	 	 "\nModel averaged support: ", Format(matchingSum/totalSum*100,8,4), "%\n",
 				 	 	 ConvertToPartString(overallBestFound),"\n");
 				 	 	 
-		if (runType == 0 && returnAVL["RECOMB"] > 0.05)
+		if (runType == 0 && returnAVL["RECOMB"] > _maximumPureRecombLevel)
 		{
 			fprintf (stdout, "[NON-PURE SUBTYPE SKIPPED]\n");
 			continue;

@@ -50,12 +50,16 @@ else
 	}
 }
 
+
 startBPC				= 1;
 
 convergenceBump			= 5;
 populationSizeBump		= 8;
 _contigGapThresh		= Min(50,BICMinLength);
 _randomizedCRFGroups	= 5000;
+
+//fprintf (stdout, "\nBICMinLength:", BICMinLength, "\n_contigGapThresh:", _contigGapThresh, "\n");
+
 
 produceOffspring		= 3*populationSize$4;
 incestDistance  		= 0;
