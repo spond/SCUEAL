@@ -233,7 +233,7 @@ for (k=0; k < tc; k = k+1)
 {
 	nodeName 	  = TipName (givenTree,k);
 	subexp = extractAllExpressions (nodeName, "[^_]+", "");
-	sequenceLabels [nodeName&&1] = subexp[0]+"-"+subexp[1];
+	sequenceLabels [nodeName&&1] = subexp[0];
 	
 	fprintf (stdout, nodeName, "->", sequenceLabels [nodeName&&1], "\n");
 }
